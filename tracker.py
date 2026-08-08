@@ -21,6 +21,7 @@ def format_alert(post, score, reasons, watched):
     )
 
 def main():
+    main()broadcast("✅ Trump Market Tracker opérationnel")
     posts = fetch_posts()
 
     for raw in reversed(posts):
@@ -40,4 +41,4 @@ def main():
         save_post(post)
 
 if __name__ == "__main__":
-    main()broadcast("✅ Trump Market Tracker opérationnel")
+    main()
