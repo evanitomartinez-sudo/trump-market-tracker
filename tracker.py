@@ -40,4 +40,4 @@ def main():
         save_post(post)
 
 if __name__ == "__main__":
-    main()
+    main()broadcast("✅ Trump Market Tracker opérationnel")
