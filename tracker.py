@@ -4,10 +4,25 @@ from db import post_seen, save_post
 from alerts import broadcast
 from config import MIN_SCORE
 
+
 def format_alert(post, score, reasons, watched):
-    level = "🔴 CRITICAL" if score >= 8 else "🟠 HIGH" if score >= 6 else "🟡 MEDIUM"
-    tickers = ", ".join(f"${x}" for x in post["tickers"]) or "aucun"
-    watched_text = ", ".join(f"${x}" for x in watched) or "aucun"
+    level = (
+        "🔴 CRITICAL"
+        if score >= 8
+        else "🟠 HIGH"
+        if score >= 6
+        else "🟡 MEDIUM"
+    )
+
+    tickers = (
+        ", ".join(f"${x}" for x in post["tickers"])
+        or "aucun"
+    )
+
+    watched_text = (
+        ", ".join(f"${x}" for x in watched)
+        or "aucun"
+    )
 
     return (
         f"{level} — TRUMP MARKET ALERT\n\n"
@@ -20,25 +35,42 @@ def format_alert(post, score, reasons, watched):
         f"🔗 {post['url']}"
     )
 
+
 def main():
-    main()broadcast("✅ Trump Market Tracker opérationnel")
+
+    # TEST TEMPORAIRE TELEGRAM
+    broadcast("✅ Trump Market Tracker opérationnel")
+
     posts = fetch_posts()
 
     for raw in reversed(posts):
+
         post = normalize(raw)
 
         if post_seen(post["id"]):
             continue
 
-        score, reasons, watched = score_post(post["text"], post["tickers"])
+        score, reasons, watched = score_post(
+            post["text"],
+            post["tickers"]
+        )
+
         post["score"] = score
         post["alerted"] = score >= MIN_SCORE
 
         if score >= MIN_SCORE:
-            message = format_alert(post, score, reasons, watched)
+
+            message = format_alert(
+                post,
+                score,
+                reasons,
+                watched
+            )
+
             broadcast(message)
 
         save_post(post)
+
 
 if __name__ == "__main__":
     main()
