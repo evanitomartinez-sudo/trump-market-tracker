@@ -39,7 +39,7 @@ def format_alert(post, score, reasons, watched):
 def main():
 
     # TEST TEMPORAIRE TELEGRAM
-    broadcast("✅ Trump Market Tracker opérationnel")
+
 
     posts = fetch_posts()
 
