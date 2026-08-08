@@ -29,10 +29,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          TRUTH_ACCOUNT_ID: ${{ secrets.TRUTH_ACCOUNT_ID }}
-          TRUTH_BASE_URL: ${{ secrets.TRUTH_BASE_URL }}
-          POLL_LIMIT: ${{ secrets.POLL_LIMIT }}
-          MIN_SCORE: ${{ secrets.MIN_SCORE }}
+         
         run: python tracker.py
 
       - name: Persist database
